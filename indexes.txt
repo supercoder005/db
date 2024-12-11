@@ -1,0 +1,26 @@
+CREATE INDEX idx_client_no ON client_master(client_no);
+
+CREATE INDEX idx_s_order_no ON sales_order(s_order_no);
+
+CREATE INDEX idx_sales_order_details ON sales_order_details(s_order_no, product_no);
+
+CREATE INDEX ch_index ON challan_header(challan_no, s_order_no);
+
+CREATE UNIQUE INDEX idx_salesman_no ON salesman_master(salesman_no);
+
+DROP INDEX ch_index;
+
+CREATE VIEW low_salary_salesmen AS
+SELECT *
+FROM salesman_master
+WHERE sal_amt < 3500;
+
+CREATE VIEW client_view AS
+SELECT name, address1 AS add1, address2 AS add2, city, pincode AS pcode, state
+FROM client_master;
+
+SELECT name
+FROM client_view
+WHERE city = 'Bombay';
+
+DROP VIEW client_view;
